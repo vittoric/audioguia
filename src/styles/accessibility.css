@@ -1,0 +1,265 @@
+/* Estilos de accesibilidad */
+
+/* Variables CSS para accesibilidad */
+:root {
+  --font-size-multiplier: 1;
+  --high-contrast: 0;
+  --reduce-motion: 0;
+  --increased-spacing: 1;
+}
+
+/* Aplicar tamaño de fuente dinámico a elementos específicos */
+/* Nota: Se aplica inline en los componentes para mejor control */
+
+/* Alto contraste */
+[data-high-contrast="true"] {
+  --telefonica-blue: #0066FF;
+  --telefonica-dark-blue: #000000;
+  --telefonica-gray-text: #000000;
+  --telefonica-white: #FFFFFF;
+}
+
+/* Fondo blanco para toda la página en alto contraste */
+[data-high-contrast="true"] body,
+[data-high-contrast="true"] html,
+[data-high-contrast="true"] #root,
+[data-high-contrast="true"] #root > div {
+  background-color: #FFFFFF !important;
+}
+
+/* TODOS los textos deben ser negros en alto contraste - regla muy específica */
+[data-high-contrast="true"] * {
+  color: #000000 !important;
+}
+
+/* Asegurar que textos con opacidad sean completamente visibles */
+[data-high-contrast="true"] .text-white\/90,
+[data-high-contrast="true"] .text-white\/95,
+[data-high-contrast="true"] .text-white\/70,
+[data-high-contrast="true"] [class*="text-white/"],
+[data-high-contrast="true"] [class*="text-white"] {
+  color: #000000 !important;
+  opacity: 1 !important;
+}
+
+/* Textos grises específicos deben ser negros */
+[data-high-contrast="true"] .text-\[\#58617A\],
+[data-high-contrast="true"] [class*="text-[#58617A]"],
+[data-high-contrast="true"] .text-\[\#0B2739\]\/60,
+[data-high-contrast="true"] [class*="text-[#0B2739]/"] {
+  color: #000000 !important;
+  opacity: 1 !important;
+}
+
+/* Fondos oscuros/gradientes deben ser blancos con borde negro */
+[data-high-contrast="true"] .bg-gradient-to-br,
+[data-high-contrast="true"] [class*="bg-gradient-to-br"],
+[data-high-contrast="true"] .bg-gradient-to-b,
+[data-high-contrast="true"] [class*="bg-gradient-to-b"],
+[data-high-contrast="true"] [class*="from-"],
+[data-high-contrast="true"] [class*="via-"],
+[data-high-contrast="true"] [class*="to-"] {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  border: 2px solid #000000 !important;
+}
+
+/* Overlays y elementos con opacidad deben ser transparentes o blancos */
+[data-high-contrast="true"] [class*="opacity-"],
+[data-high-contrast="true"] [style*="opacity"] {
+  opacity: 1 !important;
+  background-color: transparent !important;
+}
+
+/* Botones blancos deben tener borde negro y texto negro */
+[data-high-contrast="true"] .bg-white,
+[data-high-contrast="true"] [class*="bg-white"],
+[data-high-contrast="true"] button.bg-white,
+[data-high-contrast="true"] button[class*="bg-white"] {
+  background-color: #FFFFFF !important;
+  border: 2px solid #000000 !important;
+  color: #000000 !important;
+}
+
+/* Iconos deben ser negros también */
+[data-high-contrast="true"] svg,
+[data-high-contrast="true"] [class*="lucide"] {
+  color: #000000 !important;
+  stroke: #000000 !important;
+  fill: #000000 !important;
+}
+
+/* Overlays oscuros deben ser transparentes o blancos en alto contraste */
+[data-high-contrast="true"] .from-black\/70,
+[data-high-contrast="true"] .via-black\/60,
+[data-high-contrast="true"] .to-black\/70,
+[data-high-contrast="true"] [class*="black/"],
+[data-high-contrast="true"] [class*="from-black"],
+[data-high-contrast="true"] [class*="via-black"],
+[data-high-contrast="true"] [class*="to-black"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  opacity: 0 !important;
+}
+
+/* Divs con overlay oscuro deben ser transparentes */
+[data-high-contrast="true"] div[class*="bg-gradient-to-r"][class*="from-black"],
+[data-high-contrast="true"] div[class*="bg-gradient-to-r"][class*="via-black"],
+[data-high-contrast="true"] .bg-gradient-to-r.from-black\/70,
+[data-high-contrast="true"] .bg-gradient-to-r.via-black\/60 {
+  background: transparent !important;
+  background-color: transparent !important;
+  opacity: 0 !important;
+  display: none !important;
+}
+
+/* Asegurar que los textos dentro de AudioCard sean siempre visibles */
+[data-high-contrast="true"] .line-clamp-2,
+[data-high-contrast="true"] [class*="line-clamp"] {
+  color: #000000 !important;
+}
+
+/* AudioCard en alto contraste: fondo blanco, texto negro, borde grueso de 3px */
+[data-high-contrast="true"] .bg-white.rounded-2xl,
+[data-high-contrast="true"] div.bg-white.rounded-2xl {
+  background-color: #FFFFFF !important;
+  background-image: none !important;
+  border: 3px solid #000000 !important;
+  border-width: 3px !important;
+}
+
+/* Ocultar imágenes de fondo en AudioCard cuando hay alto contraste - selector más específico */
+[data-high-contrast="true"] .bg-white.rounded-2xl > div[style*="backgroundImage"],
+[data-high-contrast="true"] .bg-white.rounded-2xl > div[style*="background-image"],
+[data-high-contrast="true"] div.bg-white.rounded-2xl > div[style*="backgroundImage"],
+[data-high-contrast="true"] div.bg-white.rounded-2xl > div[style*="background-image"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+}
+
+/* Overlays oscuros completamente ocultos en alto contraste */
+[data-high-contrast="true"] .bg-white.rounded-2xl > div.bg-gradient-to-r,
+[data-high-contrast="true"] .bg-white.rounded-2xl .bg-gradient-to-r.from-black\/70,
+[data-high-contrast="true"] .bg-white.rounded-2xl .bg-gradient-to-r.via-black\/60,
+[data-high-contrast="true"] .bg-white.rounded-2xl .bg-gradient-to-r.to-black\/70,
+[data-high-contrast="true"] div.bg-white.rounded-2xl > div.bg-gradient-to-r {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+}
+
+/* Textos en AudioCard siempre negros en alto contraste */
+[data-high-contrast="true"] .bg-white.rounded-2xl h3,
+[data-high-contrast="true"] .bg-white.rounded-2xl p,
+[data-high-contrast="true"] .bg-white.rounded-2xl span,
+[data-high-contrast="true"] div.bg-white.rounded-2xl h3,
+[data-high-contrast="true"] div.bg-white.rounded-2xl p,
+[data-high-contrast="true"] div.bg-white.rounded-2xl span {
+  color: #000000 !important;
+}
+
+/* Tiempos de audio también negros */
+[data-high-contrast="true"] .bg-white.rounded-2xl .text-xs,
+[data-high-contrast="true"] div.bg-white.rounded-2xl .text-xs {
+  color: #000000 !important;
+}
+
+/* Barra de progreso de audio en alto contraste */
+/* Fondo de la barra completa: negro cuando no se reproduce */
+[data-high-contrast="true"] .bg-\[\#0066FF\]\/20,
+[data-high-contrast="true"] div[class*="bg-[#0066FF]/20"],
+[data-high-contrast="true"] .h-2.bg-\[\#0066FF\]\/20,
+[data-high-contrast="true"] div.h-2[class*="bg-[#0066FF]/20"] {
+  background-color: #000000 !important;
+  background: #000000 !important;
+}
+
+/* Barra de progreso activa (la que avanza): azul medio cuando se reproduce para mejor contraste */
+/* Selector más específico para la barra que avanza dentro del contenedor */
+[data-high-contrast="true"] .bg-\[\#0066FF\]\/20 > div.bg-\[\#0066FF\],
+[data-high-contrast="true"] div[class*="bg-[#0066FF]/20"] > div[class*="bg-[#0066FF]"]:not([class*="/"]),
+[data-high-contrast="true"] .h-full.bg-\[\#0066FF\],
+[data-high-contrast="true"] div.h-full[class*="bg-[#0066FF]"]:not([class*="/20"]):not([class*="/40"]),
+[data-high-contrast="true"] div[class*="h-full"][class*="bg-[#0066FF]"]:not([class*="/"]) {
+  background-color: #0066FF !important;
+  background: #0066FF !important;
+  border: 2px solid #000000 !important;
+  min-height: 8px !important;
+}
+
+/* Thumb del slider también azul medio con borde */
+[data-high-contrast="true"] .bg-\[\#0066FF\].rounded-full,
+[data-high-contrast="true"] div[class*="bg-[#0066FF]"][class*="rounded-full"] {
+  background-color: #0066FF !important;
+  background: #0066FF !important;
+  border: 2px solid #000000 !important;
+}
+
+/* Asegurar que los tiempos de audio sean visibles */
+[data-high-contrast="true"] .text-white\/70,
+[data-high-contrast="true"] [class*="text-white/70"] {
+  color: #000000 !important;
+  opacity: 1 !important;
+}
+
+/* Reducir animaciones */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Espaciado aumentado */
+[data-increased-spacing="true"],
+:root[style*="--increased-spacing: 1.5"] {
+  --spacing-multiplier: 1.5;
+}
+
+[data-increased-spacing="true"] * {
+  letter-spacing: calc(0.025em * var(--increased-spacing, 1)) !important;
+  word-spacing: calc(0.1em * var(--increased-spacing, 1)) !important;
+}
+
+[data-increased-spacing="true"] p,
+[data-increased-spacing="true"] h1,
+[data-increased-spacing="true"] h2,
+[data-increased-spacing="true"] h3,
+[data-increased-spacing="true"] div,
+[data-increased-spacing="true"] button {
+  margin-top: calc(0.5rem * var(--increased-spacing, 1)) !important;
+  margin-bottom: calc(0.5rem * var(--increased-spacing, 1)) !important;
+  padding-left: calc(0.5rem * var(--increased-spacing, 1)) !important;
+  padding-right: calc(0.5rem * var(--increased-spacing, 1)) !important;
+}
+
+/* Mejoras de contraste para textos */
+[data-high-contrast="true"] .text-\[\#58617A\],
+:root[style*="--high-contrast: 1"] .text-\[\#58617A\] {
+  color: #000000 !important;
+}
+
+[data-high-contrast="true"] .text-white\/90,
+:root[style*="--high-contrast: 1"] .text-white\/90 {
+  color: #FFFFFF !important;
+}
+
+/* Focus mejorado para accesibilidad */
+*:focus-visible {
+  outline: 3px solid var(--telefonica-blue, #0066FF);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+[data-high-contrast="true"] *:focus-visible,
+:root[style*="--high-contrast: 1"] *:focus-visible {
+  outline: 4px solid #000000;
+  outline-offset: 4px;
+}

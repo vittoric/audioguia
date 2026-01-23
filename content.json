@@ -1,0 +1,86 @@
+{
+  "demos": [
+    {
+      "id": "intro",
+      "order": 1,
+      "title": {
+        "es": "Intro",
+        "en": "Intro"
+      },
+      "subtitle": {
+        "es": "El MWC para Telefónica",
+        "en": "MWC for Telefónica"
+      },
+      "backgroundImage": "https://images.unsplash.com/photo-1614157561595-dc25d28cfa85?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHw1RyUyMHRlY2hub2xvZ3klMjBuZXR3b3JrfGVufDF8fHx8MTc2NTI2Mzc4MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "audio": {
+        "es": "brain-implant-cyberpunk-sci-fi-trailer-action-intro-330416.mp3",
+        "en": "brain-implant-cyberpunk-sci-fi-trailer-action-intro-330416.mp3"
+      }
+    },
+    {
+      "id": "demo1",
+      "order": 2,
+      "title": {
+        "es": "Demo 1",
+        "en": "Demo 1"
+      },
+      "subtitle": {
+        "es": "Descubre el futuro de las comunicaciones críticas",
+        "en": "Discover the future of critical communications"
+      },
+      "backgroundImage": "https://images.unsplash.com/photo-1604869515882-4d10fa4b0492?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmaWJlciUyMG9wdGljJTIwaW50ZXJuZXR8ZW58MXx8fHwxNzY1MzY3NzgwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "audio": {
+        "es": "music-free-458044.mp3",
+        "en": "music-free-458044.mp3"
+      }
+    },
+    {
+      "id": "demo2",
+      "order": 3,
+      "title": {
+        "es": "Demo 2",
+        "en": "Demo 2"
+      },
+      "subtitle": {
+        "es": "Descubre el futuro de las comunicaciones críticas",
+        "en": "Discover the future of critical communications"
+      },
+      "backgroundImage": "https://images.unsplash.com/photo-1759752394755-1241472b589d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjbG91ZCUyMGNvbXB1dGluZyUyMGRhdGF8ZW58MXx8fHwxNzY1MzY5NTM0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "audio": {
+        "es": "sweet-life-luxury-chill-438146.mp3",
+        "en": "sweet-life-luxury-chill-438146.mp3"
+      }
+    },
+    {
+      "id": "demo3",
+      "order": 4,
+      "title": {
+        "es": "Demo 3",
+        "en": "Demo 3"
+      },
+      "subtitle": {
+        "es": "Descubre el futuro de las comunicaciones críticas",
+        "en": "Discover the future of critical communications"
+      },
+      "backgroundImage": "https://images.unsplash.com/photo-1697577418970-95d99b5a55cf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlJTIwdGVjaG5vbG9neXxlbnwxfHx8fDE3NjUzNDI5Njl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "audio": {
+        "es": "vlog-beat-background-349853.mp3",
+        "en": "vlog-beat-background-349853.mp3"
+      }
+    }
+  ],
+  "landing": {
+    "title": {
+      "es": "Bienvenidos al stand de Telefónica MWC 2026",
+      "en": "Welcome to the Telefónica stand at MWC 2026"
+    },
+    "description": {
+      "es": "Aquí te ayudaremos a descubrir las principales novedades que presentamos este año. Podrás elegir el idioma de la narración y transcripción en la parte superior.",
+      "en": "Here we will help you discover the main innovations we are presenting this year. You can choose the language for narration and transcription at the top."
+    },
+    "cta": {
+      "es": "¡Empezamos!",
+      "en": "Let's get started!"
+    }
+  }
+}
