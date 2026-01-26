@@ -82,5 +82,23 @@
       "es": "¡Empezamos!",
       "en": "Let's get started!"
     }
+  },
+  "demosPage": {
+    "pageTitle": {
+      "es": "Audioguía Interactiva",
+      "en": "Interactive Audio Guide"
+    },
+    "pageSubtitle": {
+      "es": "Selecciona cualquier sección para escuchar la audioguía correspondiente",
+      "en": "Select any section to listen to the corresponding audio guide"
+    },
+    "back": {
+      "es": "Volver",
+      "en": "Back"
+    },
+    "footerInfo": {
+      "es": "Toca cualquier tarjeta para reproducir el audio",
+      "en": "Tap any card to play the audio"
+    }
   }
 }

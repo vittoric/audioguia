@@ -1,5 +1,26 @@
 /* Estilos de accesibilidad */
 
+/* Enlace "Saltar al contenido": visible solo al recibir foco */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10001;
+  padding: 0.75rem 1.25rem;
+  background: #0066FF;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-100%);
+  transition: transform 0.2s ease;
+  border-radius: 0 0 4px 0;
+}
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 3px solid #000;
+  outline-offset: 2px;
+}
+
 /* Variables CSS para accesibilidad */
 :root {
   --font-size-multiplier: 1;

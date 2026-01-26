@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { 
   Type, 
   Contrast, 
@@ -10,6 +10,14 @@ import {
 } from 'lucide-react';
 import { useAccessibility } from '../contexts/AccessibilityContext';
 import { useTranslation } from 'react-i18next';
+
+const FOCUSABLE_SELECTOR = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+function getFocusables(container: HTMLElement): HTMLElement[] {
+  return Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)).filter(
+    (el) => !el.hasAttribute('disabled') && el.offsetParent !== null
+  );
+}
 
 // Icono de accesibilidad desde el SVG proporcionado
 function AccessibilityIcon({ className, style, color = 'currentColor' }: { className?: string; style?: React.CSSProperties; color?: string }) {
@@ -31,13 +39,58 @@ function AccessibilityIcon({ className, style, color = 'currentColor' }: { class
 
 function AccessibilityPanelContent() {
   const [isOpen, setIsOpen] = useState(false);
-  
-  // Los hooks deben llamarse siempre en el mismo orden
+  const triggerButtonRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+
   const { settings, setFontSize, setHighContrast, setReduceMotion, resetSettings } = useAccessibility();
   const { i18n } = useTranslation();
   const lang = (i18n?.language as 'es' | 'en') || 'es';
 
-  console.log('AccessibilityPanelContent rendered, isOpen:', isOpen); // Debug temporal
+  // Al abrir: mover foco al primer elemento enfocable del panel
+  useEffect(() => {
+    if (!isOpen || !panelRef.current) return;
+    const focusables = getFocusables(panelRef.current);
+    const first = focusables[0];
+    if (first) {
+      const t = requestAnimationFrame(() => {
+        first.focus();
+      });
+      return () => cancelAnimationFrame(t);
+    }
+  }, [isOpen]);
+
+  // Al cerrar: devolver foco al botón flotante (solo al pasar de abierto a cerrado)
+  const prevOpenRef = useRef(isOpen);
+  useEffect(() => {
+    if (prevOpenRef.current && !isOpen) {
+      triggerButtonRef.current?.focus();
+    }
+    prevOpenRef.current = isOpen;
+  }, [isOpen]);
+
+  // Focus trap y Escape para cerrar
+  useEffect(() => {
+    if (!isOpen || !panelRef.current) return;
+    const panel = panelRef.current;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+        return;
+      }
+      if (e.key !== 'Tab') return;
+      const focusables = getFocusables(panel);
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const target = e.shiftKey ? (document.activeElement === first ? last : null) : (document.activeElement === last ? first : null);
+      if (target) {
+        e.preventDefault();
+        (target as HTMLElement).focus();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
 
   const increaseFontSize = () => {
     setFontSize(settings.fontSize + 0.1);
@@ -55,10 +108,8 @@ function AccessibilityPanelContent() {
     <>
       {/* Botón flotante para abrir el panel */}
       <button
-        onClick={() => {
-          console.log('Button clicked, current isOpen:', isOpen);
-          setIsOpen(!isOpen);
-        }}
+        ref={triggerButtonRef}
+        onClick={() => setIsOpen(!isOpen)}
         style={{ 
           position: 'fixed',
           bottom: '24px',
@@ -96,14 +147,12 @@ function AccessibilityPanelContent() {
               backgroundColor: 'rgba(0, 0, 0, 0.2)',
               zIndex: 9998
             }}
-            onClick={() => {
-              console.log('Overlay clicked, closing panel');
-              setIsOpen(false);
-            }}
+            onClick={() => setIsOpen(false)}
           />
 
           {/* Panel */}
           <div
+            ref={panelRef}
             style={{
               position: 'fixed',
               bottom: '96px',
@@ -196,7 +245,6 @@ function AccessibilityPanelContent() {
                       onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
-                        console.log('High contrast clicked, current:', settings.highContrast);
                         setHighContrast(!settings.highContrast);
                       }}
                       style={{
@@ -245,7 +293,6 @@ function AccessibilityPanelContent() {
                       onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
-                        console.log('Reduce motion clicked, current:', settings.reduceMotion);
                         setReduceMotion(!settings.reduceMotion);
                       }}
                       style={{

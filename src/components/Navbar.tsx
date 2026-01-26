@@ -39,7 +39,7 @@ export function Navbar() {
               }`}
               aria-label="Español"
             >
-              <span className="text-lg" role="img" aria-label="Bandera de España">🇪🇸</span>
+              <span className="text-lg" role="img" aria-hidden="true">🇪🇸</span>
               <span className="text-xs hidden sm:inline">ES</span>
             </button>
             <button
@@ -51,7 +51,7 @@ export function Navbar() {
               }`}
               aria-label="English"
             >
-              <span className="text-lg" role="img" aria-label="Bandera del Reino Unido">🇬🇧</span>
+              <span className="text-lg" role="img" aria-hidden="true">🇬🇧</span>
               <span className="text-xs hidden sm:inline">EN</span>
             </button>
           </div>

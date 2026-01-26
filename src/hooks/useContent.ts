@@ -21,23 +21,22 @@ export interface DemoContent {
 }
 
 export interface LandingContent {
-  title: {
-    es: string;
-    en: string;
-  };
-  description: {
-    es: string;
-    en: string;
-  };
-  cta: {
-    es: string;
-    en: string;
-  };
+  title: { es: string; en: string };
+  description: { es: string; en: string };
+  cta: { es: string; en: string };
+}
+
+export interface DemosPageContent {
+  pageTitle: { es: string; en: string };
+  pageSubtitle: { es: string; en: string };
+  back: { es: string; en: string };
+  footerInfo: { es: string; en: string };
 }
 
 interface ContentData {
   demos: DemoContent[];
   landing: LandingContent;
+  demosPage: DemosPageContent;
 }
 
 /**
@@ -87,4 +86,16 @@ export function useDemos() {
 export function useLanding() {
   const { content } = useContent();
   return content.landing;
+}
+
+// Hook específico para obtener los textos de la página de demos (título, subtítulo, volver, pie)
+export function useDemosPageContent(): DemosPageContent {
+  const { content } = useContent();
+  const defaultDemosPage: DemosPageContent = {
+    pageTitle: { es: 'Audioguía Interactiva', en: 'Interactive Audio Guide' },
+    pageSubtitle: { es: 'Selecciona cualquier sección para escuchar la audioguía correspondiente', en: 'Select any section to listen to the corresponding audio guide' },
+    back: { es: 'Volver', en: 'Back' },
+    footerInfo: { es: 'Toca cualquier tarjeta para reproducir el audio', en: 'Tap any card to play the audio' },
+  };
+  return (content as ContentData & { demosPage?: DemosPageContent }).demosPage ?? defaultDemosPage;
 }

@@ -3,6 +3,7 @@ import { Play, Pause } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAudioPlayer } from '../contexts/AudioPlayerContext';
+import { useAccessibility } from '../contexts/AccessibilityContext';
 
 interface AudioCardProps {
   title: string;
@@ -24,6 +25,8 @@ export function AudioCard({ title, subtitle, id, backgroundImage, audioUrl }: Au
   const progressBarRef = useRef<HTMLDivElement | null>(null);
   
   const isPlaying = isPlayingGlobal(id);
+  const { settings } = useAccessibility();
+  const shouldAnimate = !settings.reduceMotion;
 
   // Función para formatear el tiempo en mm:ss
   const formatTime = (seconds: number): string => {
@@ -188,17 +191,63 @@ export function AudioCard({ title, subtitle, id, backgroundImage, audioUrl }: Au
     document.addEventListener('mouseup', handleMouseUp);
   };
 
+  // Llevar la reproducción a un porcentaje (0-100). Usado por teclado y por clic/arrastre.
+  const seekToPercent = (percent: number) => {
+    if (!audioUrl || !audioRef.current || !duration) return;
+    const p = Math.max(0, Math.min(100, percent));
+    const newTime = (p / 100) * duration;
+    if (!isNaN(newTime)) {
+      audioRef.current.currentTime = newTime;
+      setProgress(p);
+      setCurrentTime(newTime);
+    }
+  };
+
+  // Teclado accesible para la barra de progreso (slider)
+  const handleProgressKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!audioUrl || !duration) return;
+    const step = 1;
+    const bigStep = 10;
+    switch (e.key) {
+      case 'ArrowLeft':
+      case 'ArrowDown':
+        e.preventDefault();
+        seekToPercent(progress - step);
+        break;
+      case 'ArrowRight':
+      case 'ArrowUp':
+        e.preventDefault();
+        seekToPercent(progress + step);
+        break;
+      case 'Home':
+        e.preventDefault();
+        seekToPercent(0);
+        break;
+      case 'End':
+        e.preventDefault();
+        seekToPercent(100);
+        break;
+      case 'PageDown':
+        e.preventDefault();
+        seekToPercent(progress - bigStep);
+        break;
+      case 'PageUp':
+        e.preventDefault();
+        seekToPercent(progress + bigStep);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <motion.div
       className="relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 
                  overflow-hidden border border-[#0066FF]/20 group cursor-pointer"
-      whileHover={{ 
-        y: -4,
-        boxShadow: '0 20px 40px rgba(0, 102, 255, 0.2)'
-      }}
-      initial={{ opacity: 0, y: 20 }}
+      whileHover={shouldAnimate ? { y: -4, boxShadow: '0 20px 40px rgba(0, 102, 255, 0.2)' } : undefined}
+      initial={shouldAnimate ? { opacity: 0, y: 20 } : { opacity: 1, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
+      transition={shouldAnimate ? { duration: 0.4 } : { duration: 0 }}
     >
       {/* Background Image with Dark Overlay */}
       {backgroundImage && (
@@ -231,17 +280,29 @@ export function AudioCard({ title, subtitle, id, backgroundImage, audioUrl }: Au
             {subtitle}
           </p>
           
-          {/* Progress Bar / Slider */}
+          {/* Progress Bar / Slider (accesible por teclado y lectores de pantalla) */}
           {(isPlaying || audioUrl) && (
             <div className="mt-3">
               <motion.div
                 ref={progressBarRef}
-                className="h-2 bg-[#0066FF]/20 rounded-full overflow-hidden cursor-pointer relative group"
-                initial={{ opacity: 0, scaleX: 0 }}
+                role="slider"
+                tabIndex={0}
+                aria-valuenow={Math.round(progress)}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-label={t('audio.progressLabel')}
+                aria-valuetext={
+                  audioUrl && duration > 0
+                    ? `${formatTime((progress / 100) * duration)} / ${formatTime(duration)}`
+                    : undefined
+                }
+                className="h-2 bg-[#0066FF]/20 rounded-full overflow-hidden cursor-pointer relative group outline-none focus-visible:ring-2 focus-visible:ring-[#0066FF] focus-visible:ring-offset-2"
+                initial={shouldAnimate ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
                 animate={{ opacity: 1, scaleX: 1 }}
-                transition={{ duration: 0.3 }}
+                transition={shouldAnimate ? { duration: 0.3 } : { duration: 0 }}
                 onClick={handleProgressClick}
                 onMouseDown={handleProgressMouseDown}
+                onKeyDown={handleProgressKeyDown}
               >
                 <motion.div
                   className="h-full bg-[#0066FF] relative"
@@ -278,15 +339,14 @@ export function AudioCard({ title, subtitle, id, backgroundImage, audioUrl }: Au
                 key={index}
                 className="w-1 rounded-full bg-[#0066FF]/40 group-hover:bg-[#0066FF]"
                 style={{ height: `${height * 4}px` }}
-                animate={isPlaying ? {
+                animate={shouldAnimate && isPlaying ? {
                   height: [`${height * 4}px`, `${height * 6}px`, `${height * 4}px`],
                 } : {}}
-                transition={{
-                  duration: 0.6,
-                  repeat: isPlaying ? Infinity : 0,
-                  delay: index * 0.1,
-                  ease: 'easeInOut',
-                }}
+                transition={
+                  shouldAnimate && isPlaying
+                    ? { duration: 0.6, repeat: Infinity, delay: index * 0.1, ease: 'easeInOut' }
+                    : { duration: 0 }
+                }
               />
             ))}
           </div>
@@ -297,8 +357,8 @@ export function AudioCard({ title, subtitle, id, backgroundImage, audioUrl }: Au
             className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-[#0066FF] to-[#0066FF] 
                      flex items-center justify-center text-white shadow-lg hover:shadow-xl
                      transition-all duration-300 group-hover:scale-110"
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={shouldAnimate ? { scale: 1.15 } : undefined}
+            whileTap={shouldAnimate ? { scale: 0.95 } : undefined}
             aria-label={isPlaying ? t('audio.pause') : t('audio.play')}
           >
             {isPlaying ? (

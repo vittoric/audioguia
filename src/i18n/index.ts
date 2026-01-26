@@ -41,6 +41,11 @@ const resources = {
       audio: {
         play: 'Reproducir audio',
         pause: 'Pausar audio',
+        progressLabel: 'Posición de reproducción',
+      },
+      // Accesibilidad
+      accessibility: {
+        skipToContent: 'Saltar al contenido',
       },
     },
   },
@@ -87,6 +92,11 @@ const resources = {
       audio: {
         play: 'Play audio',
         pause: 'Pause audio',
+        progressLabel: 'Playback position',
+      },
+      // Accessibility
+      accessibility: {
+        skipToContent: 'Skip to main content',
       },
     },
   },
@@ -100,6 +110,15 @@ i18n.use(initReactI18next).init({
     escapeValue: false, // React ya escapa los valores
   },
 });
+
+// Sincronizar atributo lang del documento con el idioma activo (accesibilidad)
+function setDocumentLang(lng: string) {
+  if (typeof document !== 'undefined' && document.documentElement) {
+    document.documentElement.lang = lng === 'en' ? 'en' : 'es';
+  }
+}
+setDocumentLang(i18n.language);
+i18n.on('languageChanged', setDocumentLang);
 
 export default i18n;
 
