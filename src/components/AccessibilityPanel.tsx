@@ -3,7 +3,6 @@ import {
   Type, 
   Contrast, 
   Zap, 
-  Maximize2, 
   X, 
   RotateCcw,
   Plus,
@@ -34,7 +33,7 @@ function AccessibilityPanelContent() {
   const [isOpen, setIsOpen] = useState(false);
   
   // Los hooks deben llamarse siempre en el mismo orden
-  const { settings, setFontSize, setHighContrast, setReduceMotion, setIncreasedSpacing, resetSettings } = useAccessibility();
+  const { settings, setFontSize, setHighContrast, setReduceMotion, resetSettings } = useAccessibility();
   const { i18n } = useTranslation();
   const lang = (i18n?.language as 'es' | 'en') || 'es';
 
@@ -270,55 +269,6 @@ function AccessibilityPanelContent() {
                           position: 'absolute',
                           top: '2px',
                           left: settings.reduceMotion ? '26px' : '2px',
-                          width: '20px',
-                          height: '20px',
-                          backgroundColor: 'white',
-                          borderRadius: '50%',
-                          transition: 'left 0.3s',
-                          pointerEvents: 'none'
-                        }}
-                      />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Aumentar espaciado */}
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Maximize2 className="w-4 h-4 text-[#0066FF]" />
-                      <label className="text-sm font-medium text-[#0B2739]">
-                        {lang === 'es' ? 'Más espaciado' : 'Increased spacing'}
-                      </label>
-                    </div>
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        console.log('Increased spacing clicked, current:', settings.increasedSpacing);
-                        setIncreasedSpacing(!settings.increasedSpacing);
-                      }}
-                      style={{
-                        position: 'relative',
-                        width: '48px',
-                        height: '24px',
-                        borderRadius: '9999px',
-                        border: 'none',
-                        cursor: 'pointer',
-                        backgroundColor: settings.increasedSpacing ? '#0066FF' : '#d1d5db',
-                        transition: 'background-color 0.3s'
-                      }}
-                      aria-label={
-                        lang === 'es'
-                          ? settings.increasedSpacing ? 'Reducir espaciado' : 'Aumentar espaciado'
-                          : settings.increasedSpacing ? 'Decrease spacing' : 'Increase spacing'
-                      }
-                    >
-                      <span
-                        style={{
-                          position: 'absolute',
-                          top: '2px',
-                          left: settings.increasedSpacing ? '26px' : '2px',
                           width: '20px',
                           height: '20px',
                           backgroundColor: 'white',

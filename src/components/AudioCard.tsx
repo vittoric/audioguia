@@ -215,7 +215,7 @@ export function AudioCard({ title, subtitle, id, backgroundImage, audioUrl }: Au
         {/* Left Section - Text Content */}
         <div className="flex-1 min-w-0">
           <h3 
-            className={`mb-1 truncate group-hover:text-[#0066FF] transition-colors ${
+            className={`mb-1 group-hover:text-[#0066FF] transition-colors break-words ${
               backgroundImage ? 'text-white' : 'text-[#0B2739]'
             }`}
             style={{ fontSize: `calc(1.25rem * var(--font-size-multiplier, 1))` }}
@@ -223,7 +223,7 @@ export function AudioCard({ title, subtitle, id, backgroundImage, audioUrl }: Au
             {title}
           </h3>
           <p 
-            className={`text-sm md:text-base line-clamp-2 ${
+            className={`text-sm md:text-base break-words ${
               backgroundImage ? 'text-white/90' : 'text-[#58617A]'
             }`}
             style={{ fontSize: `calc(1rem * var(--font-size-multiplier, 1))` }}

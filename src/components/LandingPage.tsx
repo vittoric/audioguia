@@ -93,7 +93,7 @@ export function LandingPage() {
 
           {/* Subtítulo destacado */}
           <motion.p
-            className="text-white/95 mb-6 md:mb-8 max-w-3xl mx-auto px-4 font-medium"
+            className="text-white mt-8 mb-6 md:mb-8 max-w-3xl mx-auto px-4 font-medium"
             style={{ 
               fontSize: `calc(clamp(1rem, 2vw, 1.25rem) * var(--font-size-multiplier, 1))`,
               lineHeight: '1.6'
