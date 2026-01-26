@@ -67,7 +67,7 @@ function AccessibilityPanelContent() {
           zIndex: 9999,
           width: '56px',
           height: '56px',
-          backgroundColor: '#0066FF',
+          backgroundColor: '#031A34',
           color: 'white',
           borderRadius: '50%',
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
@@ -78,8 +78,8 @@ function AccessibilityPanelContent() {
           cursor: 'pointer',
           transition: 'background-color 0.3s'
         }}
-        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#0052CC'}
-        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#0066FF'}
+        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#052a50'}
+        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#031A34'}
         aria-label={lang === 'es' ? 'Panel de accesibilidad' : 'Accessibility panel'}
         aria-expanded={isOpen}
       >

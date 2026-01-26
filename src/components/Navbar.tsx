@@ -1,5 +1,6 @@
 import { Volume2, Languages } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import telefonicaLogo from '../assets/b35e861fd1f400987d871965724f2141f95ebe60.png';
 
 export function Navbar() {
@@ -11,16 +12,18 @@ export function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0B2739] shadow-lg">
+    <nav className="fixed top-0 left-0 right-0 z-50 shadow-lg" style={{ background: 'linear-gradient(to right, #06f, #031A34)' }}>
       <div className="container mx-auto px-2 py-2 flex items-center justify-between">
         {/* Left Section */}
         <div className="flex items-center gap-3">
-          {/* Telefónica Logo */}
-          <img 
-            src={telefonicaLogo} 
-            alt="Telefónica" 
-            style={{ height: '80px', width: 'auto', filter: 'brightness(0) invert(1)' }}
-          />
+          {/* Telefónica Logo - enlace a página principal */}
+          <Link to="/" aria-label="Ir a la página principal">
+            <img 
+              src={telefonicaLogo} 
+              alt="Telefónica" 
+              style={{ height: '40px', margin: '20px',marginLeft: '0px', width: 'auto', filter: 'brightness(0) invert(1)' }}
+            />
+          </Link>
         </div>
 
         {/* Right Section */}
