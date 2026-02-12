@@ -222,8 +222,3 @@ proyecto/
 - **IMPORTANTE:** Después de cambiar `content.json`, guarda el archivo y espera 2-3 segundos. Los cambios se reflejarán automáticamente en ambos idiomas.
 
 ---
-
-## 📞 Contacto
-
-Para dudas o problemas, contacta al equipo de desarrollo.
-# audioguia
